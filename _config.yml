@@ -1,0 +1,59 @@
+title: SaturnVex
+tagline: Embedded hardware, firmware and Edge AI platforms
+description: >-
+  SaturnVex designs embedded systems: hardware design in KiCad and Altium,
+  firmware programming, Linux/PetaLinux and Xilinx FPGA SoC (Vivado, Vitis),
+  ESC motor drives, UAV/drone modules and Edge AI, with tested firmware, guides and CAD.
+keywords: >-
+  SaturnVex, embedded systems, hardware design, PCB design, KiCad, Altium,
+  firmware, embedded programming, Linux, PetaLinux, Xilinx, AMD, Vivado, Vitis,
+  Vitis HLS, HLS, FPGA, FPGA SoC, Zynq, STM32, TI C2000, ESP32, Raspberry Pi, motor drives,
+  motor control, ESC, UAV, drone,
+  flight controller, video processing, simulation, Edge AI, development kits
+email: support@saturnvex.com
+author: SaturnVex
+
+url: "https://www.saturnvex.com"
+baseurl: ""
+
+# Where the product repositories are published on GitHub
+github_org: SaturnVex        # GitHub organization or user name
+github_branch: main
+
+# Optional profile links (leave empty to hide)
+youtube: "https://www.youtube.com/@SaturnVex"
+upwork: ""                   # Upwork freelancer profile URL
+linkedin: ""
+
+markdown: kramdown
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+collections:
+  products:
+    output: true
+    permalink: /products/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: products
+    values:
+      layout: product
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - .vs
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - preview.bat
+  - vendor
+  - node_modules

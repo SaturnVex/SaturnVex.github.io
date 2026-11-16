@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<section class="svx-page-head">
+  <div class="container">
+    <h1>{{ page.title }}</h1>
+    {% if page.lead %}<p class="lead mb-0">{{ page.lead }}</p>{% endif %}
+  </div>
+</section>
+<div class="container py-5 svx-prose">
+{{ content }}
+</div>

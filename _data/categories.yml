@@ -1,0 +1,31 @@
+# Product categories. A product joins a category through "categories:" in its front matter.
+# Categories without products show a "Coming soon" card, ready for future products.
+- id: edge-ai
+  name: Edge AI
+  icon: bi-cpu
+  description: Edge AI platforms on embedded CPUs, GPUs, FPGA SoCs and microcontrollers for on-device vision, audio and sensor intelligence.
+
+- id: aerial-platforms
+  name: Aerial Platforms
+  icon: bi-airplane
+  description: Power modules and flight electronics for drones, UAVs and other aerial platforms.
+
+- id: fpga-platforms
+  name: FPGA Platforms
+  icon: bi-grid-3x3-gap
+  description: FPGA boards for high-speed signal processing and custom logic.
+
+- id: embedded-motion-control
+  name: Embedded Systems and Motion Control
+  icon: bi-gear-wide-connected
+  description: MCU development kits, embedded controllers and motor drives.
+
+- id: navigation
+  name: Navigation
+  icon: bi-geo-alt
+  description: GNSS, IMU and sensor-fusion modules.
+
+- id: accessories-modules
+  name: Accessories
+  icon: bi-plug
+  description: Modules, adapters and add-on boards.

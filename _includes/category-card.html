@@ -1,0 +1,11 @@
+{% assign items = site.products | where_exp: "p", "p.categories contains include.cat.id" %}
+<div class="col-lg-4 col-md-6">
+  <a class="card svx-card h-100 p-4 text-decoration-none" href="{{ '/' | append: include.cat.id | append: '/' | relative_url }}">
+    <div class="svx-icon"><i class="bi {{ include.cat.icon }}"></i></div>
+    <h3 class="h4 mt-3">{{ include.cat.name }}</h3>
+    <p class="text-secondary flex-grow-1">{{ include.cat.description }}</p>
+    {% if items.size > 0 %}
+    <span class="badge svx-badge-available align-self-start">{{ items.size }} product{% if items.size > 1 %}s{% endif %}</span>
+    {% endif %}
+  </a>
+</div>

@@ -1,0 +1,143 @@
+---
+layout: default
+---
+{% capture gh %}https://github.com/{{ site.github_org }}/{{ page.repo }}{% endcapture %}
+{% capture blob %}{{ gh }}/blob/{{ site.github_branch }}/{% endcapture %}
+{% capture raw %}{{ gh }}/raw/{{ site.github_branch }}/{% endcapture %}
+{% capture tree %}{{ gh }}/tree/{{ site.github_branch }}/{% endcapture %}
+<div class="container-fluid svx-crumbs">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb small mb-0">
+      <li class="breadcrumb-item"><a href="{{ '/' | relative_url }}">Home</a></li>
+      {% for cid in page.categories limit:1 %}{% assign c = site.data.categories | where: "id", cid | first %}
+      <li class="breadcrumb-item"><a href="{{ '/' | append: cid | append: '/' | relative_url }}">{{ c.name }}</a></li>{% endfor %}
+      <li class="breadcrumb-item active" aria-current="page">{{ page.code }}</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Full-width product showcase: images use the whole screen width; click or press F for full screen. -->
+<section class="svx-showcase">
+  <div id="gallery" class="carousel slide carousel-fade" data-bs-ride="false" data-bs-interval="false">
+    <div class="carousel-inner">
+      {% for img in page.gallery %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ img | relative_url }}" class="svx-showcase-img" alt="{{ page.title }} image {{ forloop.index }}"{% unless forloop.first %} loading="lazy"{% endunless %}>
+      </div>
+      {% endfor %}
+    </div>
+    {% if page.gallery.size > 1 %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#gallery" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></button>
+    <button class="carousel-control-next" type="button" data-bs-target="#gallery" data-bs-slide="next"><span class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></button>
+    <div class="carousel-indicators">
+      {% for img in page.gallery %}<button type="button" data-bs-target="#gallery" data-bs-slide-to="{{ forloop.index0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Image {{ forloop.index }}"></button>{% endfor %}
+    </div>
+    {% endif %}
+    <button type="button" class="svx-fs-btn" id="svxFullscreen" title="Full screen (F)" aria-label="Full screen"><i class="bi bi-arrows-fullscreen"></i></button>
+  </div>
+</section>
+
+<div class="container-xxl py-4">
+  <div class="row g-5 align-items-start">
+    <div class="col-lg-7">
+      <div class="svx-code mb-2">{{ page.code }}</div>
+      <h1 class="h2">{{ page.title }}</h1>
+      <p class="text-secondary">{{ page.summary }}</p>
+      <ul class="svx-checks">
+        {% for h in page.highlights %}<li><i class="bi bi-check2-circle"></i>{{ h }}</li>{% endfor %}
+      </ul>
+    </div>
+    <div class="col-lg-5 svx-actions">
+      <p class="small text-secondary mb-3"><i class="bi bi-tools me-1"></i>{{ page.toolchain }}</p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn svx-btn-primary" href="{{ gh }}"><i class="bi bi-github me-1"></i>GitHub repository</a>
+        {% if page.download != "" %}<a class="btn btn-outline-dark" href="{{ raw }}{{ page.download }}"><i class="bi bi-download me-1"></i>Complete package</a>{% endif %}
+        {% if page.video != "" %}<a class="btn btn-outline-danger" href="{{ page.video }}"><i class="bi bi-youtube me-1"></i>Video</a>{% endif %}
+        <a class="btn btn-outline-secondary" href="mailto:{{ site.email }}?subject={{ page.code | uri_escape }}%20inquiry"><i class="bi bi-envelope me-1"></i>Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-5 mt-2">
+    <div class="col-lg-7">
+      <h2 class="h4 svx-h">Overview</h2>
+      <div class="svx-prose">{{ content }}</div>
+
+      {% if page.video != "" %}
+      {% assign vid = page.video | split: "/" | last | split: "v=" | last | split: "?" | first | split: "&" | first %}
+      <h2 class="h4 svx-h mt-5">Video</h2>
+      <div class="ratio ratio-16x9 svx-gallery shadow-sm">
+        <iframe src="https://www.youtube-nocookie.com/embed/{{ vid }}" title="{{ page.title }} video"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+      {% endif %}
+
+      <h2 class="h4 svx-h mt-5">Specifications</h2>
+      <table class="table svx-table">
+        <tbody>
+        {% for s in page.specs %}<tr><th scope="row">{{ s[0] }}</th><td>{{ s[1] }}</td></tr>{% endfor %}
+        </tbody>
+      </table>
+
+      {% if page.tests.size > 0 %}
+      <h2 class="h4 svx-h mt-5">Tested examples</h2>
+      <table class="table svx-table align-middle">
+        <thead><tr><th>#</th><th>Example</th><th>Guide</th><th>Source</th></tr></thead>
+        <tbody>
+        {% for t in page.tests %}
+        <tr>
+          <td class="text-secondary">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</td>
+          <td><a href="{{ tree }}{{ t.folder }}">{{ t.name }}</a></td>
+          <td>{% if t.guide != "" %}<a href="{{ blob }}{{ t.guide }}"><i class="bi bi-file-earmark-pdf"></i> PDF</a>{% endif %}</td>
+          <td>{% if t.source != "" %}<a href="{{ raw }}{{ t.source }}"><i class="bi bi-file-earmark-zip"></i> ZIP</a>{% endif %}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card svx-card p-4 mb-4">
+        <h2 class="h5">Documentation</h2>
+        <ul class="list-unstyled mb-0 svx-filelist">
+          {% for d in page.docs %}<li><a href="{{ blob }}{{ d }}"><i class="bi bi-file-earmark-pdf"></i>{{ d | split: "/" | last | replace: "_", " " | remove: ".pdf" }}</a></li>{% endfor %}
+          {% for s in page.step_files %}<li><a href="{{ raw }}{{ s }}"><i class="bi bi-box"></i>{{ s | split: "/" | last }} (STEP)</a></li>{% endfor %}
+          {% if page.download != "" %}<li><a href="{{ raw }}{{ page.download }}"><i class="bi bi-file-earmark-zip"></i>Complete package (ZIP)</a></li>{% endif %}
+        </ul>
+      </div>
+      {% if page.cad_images.size > 0 %}
+      <div class="card svx-card p-4">
+        <h2 class="h5">Mechanical CAD</h2>
+        <div class="row g-2">
+          {% for c in page.cad_images %}<div class="col-{% if page.cad_images.size > 1 %}6{% else %}12{% endif %}"><a href="{{ c | relative_url }}" target="_blank" rel="noopener" title="Open full size"><img src="{{ c | relative_url }}" class="img-fluid rounded" alt="CAD view {{ forloop.index }}" loading="lazy"></a></div>{% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var g = document.getElementById('gallery'), b = document.getElementById('svxFullscreen');
+  if (!g || !b) return;
+  function fs() { return document.fullscreenElement || document.webkitFullscreenElement; }
+  function toggle() {
+    if (fs()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+    else { var r = g.requestFullscreen || g.webkitRequestFullscreen; if (r) r.call(g); }
+  }
+  b.addEventListener('click', toggle);
+  g.querySelectorAll('.svx-showcase-img').forEach(function (i) { i.addEventListener('click', toggle); });
+  document.addEventListener('keydown', function (e) {
+    if ((e.key === 'f' || e.key === 'F') && !/input|textarea/i.test(e.target.tagName)) toggle();
+    if (!fs() && !g.matches(':hover')) return;
+    var c = bootstrap.Carousel.getOrCreateInstance(g);
+    if (e.key === 'ArrowRight') c.next();
+    if (e.key === 'ArrowLeft') c.prev();
+  });
+  function sync() { b.innerHTML = fs() ? '<i class="bi bi-fullscreen-exit"></i>' : '<i class="bi bi-arrows-fullscreen"></i>'; }
+  document.addEventListener('fullscreenchange', sync); document.addEventListener('webkitfullscreenchange', sync);
+})();
+</script>

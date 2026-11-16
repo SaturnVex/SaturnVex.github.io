@@ -1,0 +1,19 @@
+---
+layout: default
+---
+{% assign cat = site.data.categories | where: "id", page.category | first %}
+{% assign items = site.products | where_exp: "p", "p.categories contains page.category" | sort: "weight" %}
+<section class="svx-page-head">
+  <div class="container">
+    <div class="svx-icon mb-3"><i class="bi {{ cat.icon }}"></i></div>
+    <h1>{{ cat.name }}</h1>
+    <p class="lead mb-0">{{ cat.description }}</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="row g-4">
+      {% for p in items %}{% include product-card.html p=p %}{% endfor %}
+    </div>
+  </div>
+</section>

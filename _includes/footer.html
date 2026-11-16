@@ -1,0 +1,44 @@
+<footer class="svx-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <img src="{{ '/assets/images/saturnvex-mark.png' | relative_url }}" alt="" width="32" height="32">
+          <span class="brand-text">SATURNVEX</span>
+        </div>
+        <p class="text-secondary mb-2">{{ site.tagline }}.</p>
+        <p class="mb-0"><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      </div>
+      <div class="col-6 col-lg-3">
+        <h6>Products</h6>
+        <ul class="list-unstyled">
+          {% for c in site.data.categories %}
+          <li><a href="{{ '/' | append: c.id | append: '/' | relative_url }}">{{ c.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Resources</h6>
+        <ul class="list-unstyled">
+          <li><a href="{{ '/developer-center/' | relative_url }}">Developer Center</a></li>
+          <li><a href="{{ '/downloads/' | relative_url }}">Downloads</a></li>
+          <li><a href="{{ '/support/' | relative_url }}">Support</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2">
+        <h6>Follow</h6>
+        <ul class="list-unstyled">
+          <li><a href="https://github.com/{{ site.github_org }}"><i class="bi bi-github me-1"></i>GitHub</a></li>
+          {% if site.youtube != "" %}<li><a href="{{ site.youtube }}"><i class="bi bi-youtube me-1"></i>YouTube</a></li>{% endif %}
+          {% if site.linkedin != "" %}<li><a href="{{ site.linkedin }}"><i class="bi bi-linkedin me-1"></i>LinkedIn</a></li>{% endif %}
+          {% if site.upwork != "" %}<li><a href="{{ site.upwork }}"><i class="bi bi-briefcase me-1"></i>Upwork</a></li>{% endif %}
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="small text-secondary">
+      © {{ site.time | date: "%Y" }} SaturnVex™. Example firmware is provided under the BSD-3-Clause license.
+    </div>
+  </div>
+</footer>
