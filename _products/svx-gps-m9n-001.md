@@ -33,6 +33,7 @@ step_files:
 tests:
   - {name: "GNSS Receiver Test Tool (Windows, UART)", folder: "tests/01-gnss-test-tool", guide: "tests/01-gnss-test-tool/SaturnVex_GPS_M9N_Test_Tool_Guide_EN.pdf", source: "tests/01-gnss-test-tool/GPS_M9N_Test_Tool_SaturnVex.zip"}
   - {name: "BMM350 Magnetometer (I²C)", folder: "tests/02-bmm350-i2c", guide: "", source: ""}
+  - {name: "GNSS Test Results (u-center screenshots)", folder: "tests/03_gps_ucenter_images", guide: "", source: "tests/03_gps_ucenter_images/GPS_M9N_uCenter_Images_SaturnVex.zip"}
 download: "downloads/SVX-GPS-M9N-001_Complete_Resources.zip"
 video: ""          # YouTube URL, shown as a button and embedded player when set
 ---
